@@ -3,7 +3,7 @@ from typing import Dict
 
 import joblib
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 
 APP_NAME = "routing-taxonomy-classifier-service"
 APP_VERSION = "0.3.0"
@@ -20,6 +20,8 @@ class ClassifyRequest(BaseModel):
 
 
 class ClassifyResponse(BaseModel):
+    model_config = ConfigDict(protected_namespaces=())
+    
     predicted_queue: str
     confidence: float
     probabilities: Dict[str, float]
